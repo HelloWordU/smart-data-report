@@ -46,13 +46,13 @@ public class CategoryController {
         }
         iProjectCategoryService.save(entity);
 
-        return new ResultEntity<>(200, true, "保存");
+        return new ResultEntity<>(200, true, "操作成功");
     }
 
     @PostMapping("/delete")
     public ResultEntity<Boolean> delete(@RequestParam Integer id) {
         iProjectCategoryService.removeById(id);
-        return new ResultEntity<>(200, true, "保存");
+        return new ResultEntity<>(200, true, "操作成功");
     }
 
 
