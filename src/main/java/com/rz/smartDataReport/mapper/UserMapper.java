@@ -2,7 +2,10 @@ package com.rz.smartDataReport.mapper;
 
 import com.rz.smartDataReport.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.rz.smartDataReport.pojo.vo.UserVo;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +18,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 
+    List<UserVo> getAllUser();
 }

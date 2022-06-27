@@ -2,6 +2,9 @@ package com.rz.smartDataReport.service;
 
 import com.rz.smartDataReport.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.rz.smartDataReport.pojo.vo.UserVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IUserService extends IService<User> {
 
+    List<UserVo> getAllUser();
 }

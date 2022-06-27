@@ -6,6 +6,7 @@ import com.rz.smartDataReport.common.ResultEntityList;
 import com.rz.smartDataReport.entity.CategoryScreenConfig;
 import com.rz.smartDataReport.entity.ProjectCategory;
 import com.rz.smartDataReport.service.ICategoryScreenConfigService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,13 +16,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/categoryScreenConfig")
+@Api("项目分类大屏")
 public class CategoryScreenConfigController {
 
     @Resource
     private ICategoryScreenConfigService iCategoryScreenConfigService;
 
     @ApiOperation(value = "获取分类大屏配置", notes = "获取分类大屏配置", httpMethod = "GET")
-    @GetMapping("/getCategoryScreenConfig")
+    @GetMapping("/get")
     public ResultEntityList<CategoryScreenConfig> getCategoryScreenConfig(@RequestParam int categoryId) {
         LambdaQueryWrapper<CategoryScreenConfig> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(CategoryScreenConfig::getCategoryId, categoryId);
@@ -31,7 +33,13 @@ public class CategoryScreenConfigController {
 
     @PostMapping("/save")
     public ResultEntity<Boolean> save(@RequestBody CategoryScreenConfig entity) {
-        iCategoryScreenConfigService.save(entity);
+
+        if(entity.getCreateTime()==null)
+        {
+            entity.setUpdateTime(new Date());
+        }
+        entity.setUpdateTime(new Date());
+        iCategoryScreenConfigService.saveOrUpdate(entity);
         return new ResultEntity<>(200, true, "保存");
     }
 

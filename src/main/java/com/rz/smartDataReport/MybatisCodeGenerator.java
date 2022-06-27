@@ -8,8 +8,8 @@ import java.util.Collections;
 
 public class MybatisCodeGenerator {
     public static void main(String[] args) {
-        FastAutoGenerator root = FastAutoGenerator.create("jdbc:mysql://192.168.1.207:3306/smart_report?useSSL=false&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull",
-                "root", "System@123");
+        FastAutoGenerator root = FastAutoGenerator.create("jdbc:mysql://182.61.26.201:3306/smart_report?useSSL=false&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull",
+                "root", "Snow2021$");
 
         root.globalConfig(builder -> {
                     builder.author("baomidou") // 设置作者
@@ -18,12 +18,12 @@ public class MybatisCodeGenerator {
                             .outputDir("D://smart_report"); // 指定输出目录
                 })
                 .packageConfig(builder -> {
-                    builder.parent("com.baomidou.mybatisplus.samples.generator") // 设置父包名
+                    builder.parent("com.rz.smartDataReport") // 设置父包名
                             .moduleName("system") // 设置父包模块名
                             .pathInfo(Collections.singletonMap(OutputFile.entity, "D://smart_report")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("user","project_category","project","company","category_screen_config","category_maintenance","category_industry_hot_word","category_hot_word","category_article") // 设置需要生成的表名
+                    builder.addInclude("monitoring_plantform_article","monitoring_plantform_config","monitoring_plantform_statistic","monitoring_reaching_standard_count") // 设置需要生成的表名
                             .addTablePrefix("t_", "c_","crm_"); // 设置过滤表前缀
                     builder.entityBuilder().enableLombok();
                 })
