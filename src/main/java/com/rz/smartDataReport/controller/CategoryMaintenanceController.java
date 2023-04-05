@@ -29,13 +29,33 @@ public class CategoryMaintenanceController {
         if (one != null) {
             res.setHavepublish(one.getPublishTotal());
             res.setHaveRead(one.getReadTotal());
-            res.setHaveRrite(one.getReadTotal());
+            res.setHaveRrite(one.getWriteTotal());
             res.setPublish(one.getPublishPlanTotal());
             res.setRead(one.getReadPlanTotal());
             res.setWrite(one.getWritePlanTotal());
         }
         return new ResultEntity(200, res, "获取成功");
     }
+
+
+    @GetMapping("/admin/get")
+    public ResultEntity<CategoryMaintenanceVo> getCategoryMaintenanceAdmin(@RequestParam int categoryId) {
+        LambdaQueryWrapper<CategoryMaintenance> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(CategoryMaintenance::getCategoryId, categoryId);
+        CategoryMaintenance one = iCategoryMaintenanceService.getOne(wrapper);
+        CategoryMaintenanceVo res = new CategoryMaintenanceVo();
+        if (one != null) {
+            res.setHavepublish(one.getPublishTotal());
+            res.setHaveRead(one.getReadTotal());
+            res.setHaveRrite(one.getWriteTotal());
+            res.setPublish(one.getPublishPlanTotal());
+            res.setRead(one.getReadPlanTotal());
+            res.setWrite(one.getWritePlanTotal());
+            res.setId(one.getId());
+        }
+        return new ResultEntity(200, res, "获取成功");
+    }
+
 
     @PostMapping("/save")
     public ResultEntity<Boolean> saveCategoryMaintenance(@RequestBody CategoryMaintenance data) {

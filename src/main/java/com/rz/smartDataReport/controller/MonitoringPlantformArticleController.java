@@ -12,6 +12,7 @@ import com.rz.smartDataReport.pojo.vo.GetByPlantformIdAndKeyRequest;
 import com.rz.smartDataReport.pojo.vo.MonitoringPlantformArticleVo;
 import com.rz.smartDataReport.service.IMonitoringPlantformArticleService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -61,6 +62,13 @@ public class MonitoringPlantformArticleController {
             item.setTitle(item.getTitle().replace(item.getCategoryName(),"<span style=\"color:#5ED9F1;\">"+item.getCategoryName()+"</span>"));
         }
         return new ResultEntityList(200, res, "获取成功");
+    }
+
+    @PostMapping("/delete")
+    @ApiOperation(value = "删除监控文章")
+    public ResultEntity<Boolean> delete(@RequestParam Integer id) {
+        iMonitoringPlantformArticleService.removeById(id);
+        return new ResultEntity<>(200, true, "保存");
     }
 
 

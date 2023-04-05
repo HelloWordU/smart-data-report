@@ -119,6 +119,10 @@ public class CacheManager {
     public synchronized static void putCache(String key, CacheEntity obj) {
         cacheMap.put(key, obj);
     }
+    //删除缓存
+    public synchronized static void removeCache(String key) {
+        cacheMap.remove(key);
+    }
     //获取缓存信息
     public static CacheEntity getCacheInfo(String key) {
         if (hasCache(key)) {

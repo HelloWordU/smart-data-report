@@ -42,7 +42,7 @@ public class MonitoringPlantformStatisticController {
     }
 
     @GetMapping("/getPageDataByCategoryId")
-    @ApiOperation(value = "获取核心数据页面数据")
+    @ApiOperation(value = "获取核心数据页面数据折线图数据")
     public ResultEntity<MonitoringPlantPageDataVo> getPageDataByCategoryId(@RequestParam int categoryId) {
 
         MonitoringPlantPageDataVo res = iMonitoringPlantformStatisticService.getPageDataByCategoryId(categoryId);

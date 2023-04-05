@@ -62,17 +62,17 @@ public class MonitoringPlantformStatisticServiceImpl extends ServiceImpl<Monitor
         Map<String, Integer> jpData = new HashMap<>();
         Map<String, Integer> hyData = new HashMap<>();
         Map<String, Integer> dbData = new HashMap<>();
-        Map<String, Integer> timeData = new HashMap<>();
+        List<String> timeDataRes = new ArrayList<>();
         Random r = new Random();
-        Integer totalNum = list.size();
+        Integer totalNum = 6;
         for (int j = 0; j < 7; j++) {
             String Key = LocalDate.now().plusDays(0 - j).format(DateTimeFormatter.ofPattern("MM月dd日"));
 
-            zsData.put(Key, r.nextInt(list.size()) + 1);
-            jpData.put(Key, r.nextInt(list.size()) + 1);
-            hyData.put(Key, r.nextInt(list.size()) + 1);
-            dbData.put(Key, r.nextInt(list.size()) + 1);
-            timeData.put(Key, 0);
+            zsData.put(Key, 0);
+            jpData.put(Key, 0);
+            hyData.put(Key,0);
+            dbData.put(Key, 0);
+            timeDataRes.add(Key);
         }
         for (MonitoringReachingStandardCount item : weekMonitoring) {
             String currentKey = item.getMonitoringDate().format(DateTimeFormatter.ofPattern("MM月dd日"));
@@ -99,17 +99,26 @@ public class MonitoringPlantformStatisticServiceImpl extends ServiceImpl<Monitor
 
         }
         MonitoringPlantPageDataVo res = new MonitoringPlantPageDataVo();
-        res.setDbData(new ArrayList<Integer>(dbData.values()));
-        res.setHyData(new ArrayList<Integer>(hyData.values()));
-        res.setJpData(new ArrayList<Integer>(jpData.values()));
-        res.setTimeData(new ArrayList<String>(timeData.keySet()));
-        res.setZsData(new ArrayList<Integer>(zsData.values()));
-        Collections.reverse(res.getDbData());
-        Collections.reverse(res.getHyData());
-        Collections.reverse(res.getJpData());
-        Collections.reverse(res.getTimeData());
-        Collections.reverse(res.getZsData());
-        int randomReachNum = r.nextInt(totalNum) + 1;
+
+        Collections.reverse(timeDataRes);
+        List<Integer> dbDataRes  = new ArrayList<Integer>();
+        List<Integer> hyDataRes  = new ArrayList<Integer>();
+        List<Integer> jpDataRes  = new ArrayList<Integer>();
+        List<Integer> zsDataRes  = new ArrayList<Integer>();
+        for (String date : timeDataRes)
+        {
+            dbDataRes.add(dbData.get(date));
+            hyDataRes.add(hyData.get(date));
+            jpDataRes.add(jpData.get(date));
+            zsDataRes.add(zsData.get(date));
+        }
+        res.setDbData(dbDataRes);
+        res.setHyData(hyDataRes);
+        res.setJpData(jpDataRes);
+        res.setTimeData(timeDataRes);
+        res.setZsData(zsDataRes);
+
+        int randomReachNum = 6;//r.nextInt(totalNum) + 1;
         res.setNoReachNum(totalNum - (selfTodayMonitoring == null ? randomReachNum : selfTodayMonitoring.getReachingStandardCount()));
         res.setPlantformData(list);
         res.setTotalNum(totalNum);

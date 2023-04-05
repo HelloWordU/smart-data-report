@@ -10,4 +10,5 @@ public class CategoryMaintenanceVo {
     private Integer havepublish;
     private Integer read;
     private Integer haveRead;
+    private Integer id;
 }

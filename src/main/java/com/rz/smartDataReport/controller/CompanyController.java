@@ -5,9 +5,11 @@ import com.rz.smartDataReport.common.CacheManager;
 import com.rz.smartDataReport.common.ResultEntity;
 import com.rz.smartDataReport.common.ResultEntityList;
 import com.rz.smartDataReport.entity.Company;
+import com.rz.smartDataReport.entity.Project;
 import com.rz.smartDataReport.entity.User;
 import com.rz.smartDataReport.pojo.entity.CacheEntity;
 import com.rz.smartDataReport.service.ICompanyService;
+import com.rz.smartDataReport.service.IProjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +27,8 @@ public class CompanyController {
     private HttpServletRequest request;
     @Resource
     private ICompanyService iCompanyService;
-
+    @Resource
+    private IProjectService iProjectService;
     @GetMapping("/get")
     public ResultEntityList<Company> getUser() {
         String accessToken = request.getHeader("accessToken");
@@ -74,6 +77,18 @@ public class CompanyController {
 
         entity.setUpdateTime(new Date());
         iCompanyService.saveOrUpdate(entity);
+
+        LambdaQueryWrapper<Project> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Project::getCompanyId, entity.getId());
+        Project one = iProjectService.getOne(wrapper);
+        if(one==null)
+        {
+            one = new Project();
+            one.setCompanyId(entity.getId());
+            one.setCreateTime(new Date());
+            one.setDescription("");
+            iProjectService.save(one);
+        }
 
         return new ResultEntity<>(200, true, "操作成功");
     }

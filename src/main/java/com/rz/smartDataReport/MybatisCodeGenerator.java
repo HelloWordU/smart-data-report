@@ -19,11 +19,11 @@ public class MybatisCodeGenerator {
                 })
                 .packageConfig(builder -> {
                     builder.parent("com.rz.smartDataReport") // 设置父包名
-                            .moduleName("system") // 设置父包模块名
+                            .moduleName("") // 设置父包模块名
                             .pathInfo(Collections.singletonMap(OutputFile.entity, "D://smart_report")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("monitoring_plantform_article","monitoring_plantform_config","monitoring_plantform_statistic","monitoring_reaching_standard_count") // 设置需要生成的表名
+                    builder.addInclude("negative_all,negative_chart,negative_five") // 设置需要生成的表名
                             .addTablePrefix("t_", "c_","crm_"); // 设置过滤表前缀
                     builder.entityBuilder().enableLombok();
                 })

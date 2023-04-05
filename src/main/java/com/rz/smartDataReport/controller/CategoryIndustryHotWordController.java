@@ -30,7 +30,7 @@ public class CategoryIndustryHotWordController {
     public ResultEntityList<CategoryHotWordVo> getCategoryIndustryHotWordList(@RequestParam int categoryId) {
         LambdaQueryWrapper<CategoryIndustryHotWord> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(CategoryIndustryHotWord::getCategoryId, categoryId);
-        wrapper.orderBy(true, false, CategoryIndustryHotWord::getSort);
+        wrapper.orderBy(true, true, CategoryIndustryHotWord::getSort);
         List<CategoryIndustryHotWord> listData = iCategoryIndustryHotWordService.list(wrapper);
         List<CategoryHotWordVo> res = new ArrayList<>();
         if (listData != null) {
